@@ -13,7 +13,7 @@ var app = require('./config/custom-express')();
 // });
 
 //http.listen(2001,  '192.168.0.103', cors(corsOptions) , function () {
-app.listen(2001,  '192.168.0.102', function () {
+app.listen(2001,  '192.168.0.104', function () {
    console.log('====> Servidor no rodando <====');
 });
 

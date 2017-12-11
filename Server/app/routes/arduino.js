@@ -5,6 +5,8 @@ var five = require("johnny-five");
 //var board = new five.Board({ port: 'COM19'});
 var board = new five.Board();
 var Light = require('../services/light');
+var Pulse = require('../services/pulse');
+var Blink = require('../services/blink');
 var count = 0;
 module.exports = function (app) {
 
@@ -37,8 +39,30 @@ module.exports = function (app) {
                         }
                         console.log('Ação: ' + command[i] + ' existente');
                         break;
+                    case 'pulse':
+                        if((count - leds.length) == 0){
+                            count = 0;
+                            Pulse(leds[count]);
+                            count = 1;
+                        } else {
+                            Pulse(leds[count]);
+                            count++;
+                        }
+                        console.log('Ação: ' + command[i] + ' existente');
+                        break;
+                    case 'blink':
+                        if((count - leds.length) == 0){
+                            count = 0;
+                            Blink(leds[count]);
+                            count = 1;
+                        } else {
+                            Blink(leds[count]);
+                            count++;
+                        }
+                        console.log('Ação: ' + command[i] + ' existente');
+                        break;
                     case 'off':
-                        leds.off();
+                        leds.stop().off();
                         count = 0;
                         console.log('off');
                         break;
@@ -48,6 +72,16 @@ module.exports = function (app) {
                 }
             }
             res.send('bateu').end();
+        });
+        var rgb = new five.Led.RGB([6, 5, 3]);
+        var index = 0;
+        var rainbow = ["FF0000", "FF7F00", "FFFF00", "00FF00", "0000FF", "4B0082", "8F00FF"];
+
+        this.loop(1000, function() {
+            rgb.color(rainbow[index++]);
+            if (index === rainbow.length) {
+                index = 0;
+            }
         });
     });
 };

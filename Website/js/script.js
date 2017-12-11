@@ -6,7 +6,7 @@ function Action(action) {
 function Xhr(data){
     var xhr = new XMLHttpRequest();
     //xhr.open("POST", "http://192.168.2.221:2001/post/", true);
-    xhr.open("POST", "http://192.168.0.102:2001/command", true);
+    xhr.open("POST", "http://192.168.0.104:2001/command", true);
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
